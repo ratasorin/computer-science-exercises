@@ -1,3 +1,6 @@
 {
-    "explorer.compactFolders": false
+  "explorer.compactFolders": false,
+  "files.associations": {
+    "stdio.h": "c"
+  }
 }
