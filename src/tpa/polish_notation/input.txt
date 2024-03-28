@@ -1,0 +1,5 @@
+a + b * c + d * (e + f)
+1 2 3 4 1 1
+
+// polish notation should be: abc*+def+*+
+// should be: 15
