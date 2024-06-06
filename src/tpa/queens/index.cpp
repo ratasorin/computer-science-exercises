@@ -18,69 +18,57 @@ bool attacking_on_diag(vector<int> queens) {
     for(int i = 0; i < queens.size(); i++) {
         for(int j = 0; j < queens.size(); j++) {
             if(i == j) continue;
-            if(abs((queens[j] - queens[i]) / (j - i)) == 1) return true;
+            if((abs(queens[j] - queens[i]) / abs(j - i)) == 1) return true;
         }
     }
     return false;
 }
 
 bool is_attacking (const vector<int>& queens) {
-    // the queens are not attacking each other on row
+    // the queens are attacking each other on row
     if(attacking_on_row(queens)) return true;
 
-    // the queens are not attacking each other on diagonal 
+    // the queens are attacking each other on diagonal 
     if(attacking_on_diag(queens)) return true;
     
     return false;
 }
 
 void display(vector<int> queens, int chess_table_size) {
-    for(auto q : queens) cout << q << " ";
+    for(auto q : queens) cout << q + 1 << " ";
     cout << endl;
-    // for(int i = 0; i < chess_table_size; i++) {
-    //     bool found_queen = false;
-    //     for(int j = 0; j < chess_table_size; j++) {
-    //         if(queens.at(i) == j && !found_queen) {
-    //             cout << "Q ";
-    //             found_queen = true;
-    //         }
-    //         else cout << ". ";
-    //     }
-    //     cout << endl;
-    // }
-    // cout << endl;
+    for(int i = 0; i < chess_table_size; i++) {
+        bool found_queen = false;
+        for(int j = 0; j < chess_table_size; j++) {
+            if(queens.at(j) == i && !found_queen) {
+                cout << "Q ";
+                found_queen = true;
+            }
+            else cout << ". ";
+        }
+        cout << endl;
+    }
+    cout << endl;
 }
 
-void solve_n_queens(int chess_table_size) {
-    vector<vector<int>> solutions = {};
-    vector<int> current_solution = {};
-
+void solve_n_queens(int chess_table_size, vector<int> current_solution, vector<vector<int>>& all_solutions) {
+    cout << current_solution.size() << endl;
+    if(current_solution.size() == chess_table_size) {
+        display(current_solution, chess_table_size);
+        all_solutions.push_back(current_solution);
+        return;
+    }
+    
     for(int i = 0; i < chess_table_size; i++) {
         current_solution.push_back(i);
-        
-        while(!current_solution.empty()) {
-            if(current_solution.size() == chess_table_size) {
-                solutions.push_back(current_solution);
-                display(current_solution, chess_table_size);
-                current_solution = {};
-                break;
-            }
-            
-
-            bool found_solution_on_column = false;
-            for(int i = 0; i < chess_table_size && !found_solution_on_column; i++) {
-                current_solution.push_back(i);
-                display(current_solution, chess_table_size);
-                if(!is_attacking(current_solution)) found_solution_on_column = true;
-                else current_solution.pop_back();
-            }
-            
-            if(!found_solution_on_column) current_solution.pop_back();
-        }
+        solve_n_queens(chess_table_size, current_solution, all_solutions);
+        current_solution.pop_back();
     }
 }
 
 int main() {
-    int chess_table_size = 8;
-    solve_n_queens(chess_table_size);
+    int chess_table_size = 4;
+    vector<vector<int>> all_solutions = {};
+    vector<int> solution = {};
+    solve_n_queens(chess_table_size, solution, all_solutions);
 }
