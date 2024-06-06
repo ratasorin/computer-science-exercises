@@ -1,0 +1,18 @@
+
+============CURRENT TEST: 1==================
+Answer recursive: 29
+Execution time recursive: 0.139ms
+Answer greedy: 29
+Execution time greedy: 0.0028ms
+
+============CURRENT TEST: 2==================
+Answer recursive: 16
+Execution time recursive: 0.0114ms
+Answer greedy: 8
+Execution time greedy: 0.0012ms
+
+============CURRENT TEST: 3==================
+Answer recursive: 836
+Execution time recursive: 11.6534ms
+Answer greedy: 388
+Execution time greedy: 0.0018ms
